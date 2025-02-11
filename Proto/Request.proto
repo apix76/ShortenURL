@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option go_package = "ReductionAPI/Proto";
+
+service ShortenURL{
+ rpc GetShortenURL(URL) returns (ShortURL){}
+  rpc GetAllURL(ShortURL) returns (URL){}
+}
+
+message URL{
+  string Url = 1;
+}
+
+message ShortURL {
+  string ShortURL = 1;
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteTargetsManager">
+    <targets>
+      <target name="WSL - Ubuntu" type="wsl" uuid="d73df162-22e3-4c2c-98cf-de973d94044a">
+        <config>
+          <option name="distributionMsId" value="Ubuntu" />
+          <option name="projectRootOnTarget" value="{exitCode=0, timeout=false, cancelled=false, stdout=/mnt/c/Program Files/JetBrains/GoLand 2023.3.5/jbr/bin&#10;, stderr=}/ReductionAPI" />
+        </config>
+        <ContributedStateBase type="GoLanguageRuntime">
+          <config>
+            <option name="goPath" value="warning: GOPATH set to GOROOT (/home/apix/go) has no effect" />
+            <option name="goRoot" value="/home/apix/go/bin/go" />
+            <option name="goVersion" value="warning: GOPATH set to GOROOT (/home/apix/go) has no effect" />
+          </config>
+        </ContributedStateBase>
+      </target>
+    </targets>
+  </component>
+</project>
