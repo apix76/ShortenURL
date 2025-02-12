@@ -1,19 +1,16 @@
-package TestGrpc
+package grpcServer
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/apix76/ShortenURL/Conf"
 	"github.com/apix76/ShortenURL/Proto"
-	"github.com/apix76/ShortenURL/grpcServer"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"log"
 	"math/rand"
-	"os"
 	"testing"
 	"time"
 )
@@ -25,12 +22,9 @@ type Execute struct {
 const lengthRandomString = 20
 
 func TestGrpc(t *testing.T) {
-	conf, err := NewTestConfig()
-	if err != nil {
-		t.Error(err)
-	}
+	conf := NewTestConfig()
 
-	go grpcServer.GrpcServer(conf)
+	go GrpcServer(conf)
 	time.Sleep(1 * time.Second)
 
 	con, err := grpc.NewClient(fmt.Sprintf("127.0.0.1%s", conf.GrpcPort), grpc.WithTransportCredentials(insecure.NewCredentials()))
@@ -70,22 +64,8 @@ func (e *Execute) Testing() error {
 	return nil
 }
 
-func NewTestConfig() (Conf.Conf, error) {
-	var conf Conf.Conf
-
-	file, err := os.Open("Testconfig.cfg")
-	if err != nil {
-		return Conf.Conf{}, err
-	}
-
-	defer file.Close()
-
-	err = json.NewDecoder(file).Decode(&conf)
-	if err != nil {
-		return Conf.Conf{}, err
-	}
-
-	return conf, err
+func NewTestConfig() Conf.Conf {
+	return Conf.Conf{GrpcPort: "8080", HttpPort: "8081", PgsqlNameServe: "postgres://app:password@localhost:5432/linksdb"}
 }
 
 func RandomString() string {

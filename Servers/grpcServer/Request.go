@@ -1,27 +1,27 @@
-package Proto
+package grpcServer
 
 import (
 	"context"
-	"database/sql"
 	"errors"
 	"github.com/apix76/ShortenURL/Db/DbInterface"
+	"github.com/apix76/ShortenURL/Proto"
 	"github.com/apix76/ShortenURL/UseCase"
 )
 
 type Server struct {
-	UnimplementedShortenURLServer
+	Proto.UnimplementedShortenURLServer
 	Db DbInterface.Db
 }
 
-func (s *Server) GetShortenURL(ctx context.Context, url *URL) (*ShortURL, error) {
+func (s *Server) GetShortenURL(ctx context.Context, url *Proto.URL) (*Proto.ShortURL, error) {
 	if url == nil {
 		return nil, errors.New("url can't be nil")
 	}
 
-	shortUrl := ShortURL{ShortURL: UseCase.ShortenURL(url.Url)}
+	shortUrl := Proto.ShortURL{ShortURL: UseCase.ShortenURL(url.Url)}
 
 	if _, err := s.Db.Get(shortUrl.ShortURL); err != nil {
-		if err == DbInterface.ErrNoExist || err == sql.ErrNoRows {
+		if err == DbInterface.ErrNoExist {
 			if err = s.Db.Add(shortUrl.ShortURL, url.Url); err != nil {
 				return nil, err
 			}
@@ -33,13 +33,13 @@ func (s *Server) GetShortenURL(ctx context.Context, url *URL) (*ShortURL, error)
 	return &shortUrl, nil
 }
 
-func (s Server) GetAllURL(ctx context.Context, shortUrl *ShortURL) (*URL, error) {
+func (s Server) GetAllURL(ctx context.Context, shortUrl *Proto.ShortURL) (*Proto.URL, error) {
 	if shortUrl == nil {
 		return nil, errors.New("shortenUrl cannot be nil")
 	}
 
 	var (
-		url URL
+		url Proto.URL
 		err error
 	)
 

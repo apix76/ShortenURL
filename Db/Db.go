@@ -6,11 +6,11 @@ import (
 	"github.com/apix76/ShortenURL/Db/Psql"
 )
 
-func NewDb(dns string) (DbInterface.Db, error) {
+func NewDb(dsn string) (DbInterface.Db, error) {
 	var Db DbInterface.Db
 
-	if dns != "" {
-		NewDb, err := Psql.NewDb(dns)
+	if dsn != "" {
+		NewDb, err := Psql.NewDb(dsn)
 		if err != nil {
 			return nil, err
 		}

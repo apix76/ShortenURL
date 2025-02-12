@@ -2,10 +2,12 @@ package InMemory
 
 import (
 	"github.com/apix76/ShortenURL/Db/DbInterface"
+	"sync"
 )
 
 type DbMap struct {
 	db map[string]string
+	mu sync.Mutex
 }
 
 func NewDb() DbMap {
@@ -14,6 +16,9 @@ func NewDb() DbMap {
 }
 
 func (db *DbMap) Add(shortURL, URL string) error {
+	db.mu.Lock()
+	defer db.mu.Unlock()
+
 	_, ok := db.db[shortURL]
 	if ok {
 		err := DbInterface.ErrNoExist
@@ -26,6 +31,9 @@ func (db *DbMap) Add(shortURL, URL string) error {
 }
 
 func (db *DbMap) Get(shortURL string) (string, error) {
+	db.mu.Lock()
+	defer db.mu.Unlock()
+
 	URL, ok := db.db[shortURL]
 	if !ok {
 		err := DbInterface.ErrNoExist
@@ -36,6 +44,9 @@ func (db *DbMap) Get(shortURL string) (string, error) {
 }
 
 func (db *DbMap) Delete(shortURL string) error {
+	db.mu.Lock()
+	defer db.mu.Unlock()
+
 	delete(db.db, shortURL)
 	return nil
 }

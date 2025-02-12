@@ -1,7 +1,6 @@
 package rest
 
 import (
-	"database/sql"
 	"encoding/json"
 	"fmt"
 	"github.com/apix76/ShortenURL/Conf"
@@ -66,7 +65,7 @@ func (p *HTTPHandler) ServePost(w http.ResponseWriter, req *http.Request) {
 	Resp.ShortURL = UseCase.ShortenURL(UrlFromRequest.URL)
 
 	if _, err := p.Db.Get(Resp.ShortURL); err != nil {
-		if err == DbInterface.ErrNoExist || err == sql.ErrNoRows {
+		if err == DbInterface.ErrNoExist {
 			if err = p.Db.Add(Resp.ShortURL, UrlFromRequest.URL); err != nil {
 				w.WriteHeader(http.StatusBadRequest)
 				return
@@ -105,7 +104,7 @@ func (g *HTTPHandler) ServeGet(w http.ResponseWriter, req *http.Request) {
 	defer req.Body.Close()
 
 	if ResponseURL.URL, err = g.Db.Get(RequestURL.ShortURL); err != nil {
-		w.WriteHeader(http.StatusBadRequest)
+		w.WriteHeader(http.StatusBadRequest) //todo
 		return
 	}
 

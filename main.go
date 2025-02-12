@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/apix76/ShortenURL/Conf"
-	"github.com/apix76/ShortenURL/grpcServer"
-	"github.com/apix76/ShortenURL/rest"
+	"github.com/apix76/ShortenURL/Servers/grpcServer"
+	"github.com/apix76/ShortenURL/Servers/rest"
 	"log"
 )
 

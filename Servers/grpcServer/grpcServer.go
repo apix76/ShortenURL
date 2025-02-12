@@ -22,7 +22,7 @@ func GrpcServer(conf Conf.Conf) {
 		log.Fatal(err)
 	}
 
-	serv := Proto.Server{Db: db}
+	serv := Server{Db: db}
 	grpcServer := grpc.NewServer()
 	Proto.RegisterShortenURLServer(grpcServer, &serv)
 

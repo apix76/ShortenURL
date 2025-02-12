@@ -1,4 +1,4 @@
-package TestRest
+package rest
 
 import (
 	"bytes"
@@ -6,11 +6,9 @@ import (
 	"errors"
 	"fmt"
 	"github.com/apix76/ShortenURL/Conf"
-	"github.com/apix76/ShortenURL/rest"
 	"golang.org/x/sync/errgroup"
 	"math/rand"
 	"net/http"
-	"os"
 	"testing"
 	"time"
 )
@@ -36,12 +34,9 @@ const (
 )
 
 func TestRest(t *testing.T) {
-	conf, err := NewTestConfig()
-	if err != nil {
-		t.Error(err)
-	}
+	conf := NewTestConfig()
 
-	go rest.Http(conf)
+	go Http(conf)
 	time.Sleep(1 * time.Second)
 
 	wg := errgroup.Group{}
@@ -54,10 +49,7 @@ func TestRest(t *testing.T) {
 }
 
 func RequestLoop() error {
-	conf, err := NewTestConfig()
-	if err != nil {
-		return err
-	}
+	conf := NewTestConfig()
 
 	t := TestStruct{httpPort: conf.HttpPort}
 	for i := 0; i < 10; i++ {
@@ -121,22 +113,8 @@ func (t *TestStruct) Get() error {
 	return err
 }
 
-func NewTestConfig() (Conf.Conf, error) {
-	var conf Conf.Conf
-
-	file, err := os.Open("Testconfig.cfg")
-	if err != nil {
-		return Conf.Conf{}, err
-	}
-
-	defer file.Close()
-
-	err = json.NewDecoder(file).Decode(&conf)
-	if err != nil {
-		return Conf.Conf{}, err
-	}
-
-	return conf, err
+func NewTestConfig() Conf.Conf {
+	return Conf.Conf{GrpcPort: "8080", HttpPort: "8081", PgsqlNameServe: "postgres://app:password@localhost:5432/linksdb"}
 }
 
 func RandomString() string {

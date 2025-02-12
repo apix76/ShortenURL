@@ -2,6 +2,7 @@ package Psql
 
 import (
 	"database/sql"
+	"github.com/apix76/ShortenURL/Db/DbInterface"
 	_ "github.com/jackc/pgx/v5/stdlib"
 )
 
@@ -32,8 +33,13 @@ func (db *DbAccess) Get(shortURL string) (string, error) {
 	var URL string
 
 	if err := row.Scan(&URL); err != nil {
-		return "", err
+		if err == sql.ErrNoRows {
+			return "", DbInterface.ErrNoExist
+		} else {
+			return "", err
+		}
 	}
+
 	return URL, nil
 }
 
