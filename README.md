@@ -22,7 +22,7 @@ docker build -t shortenurl location_ShortenURL
 
 This comman is create image from [Dockerfile](https://github.com/apix76/ShortenURL/blob/main/Dockerfile), which you can run with:
 ```
-docker run shortenurl
+docker run -p HttpPort:HttpPort -p GrpcPort:GrpcPort shortenurl
 ```
 
 # Postgresql
