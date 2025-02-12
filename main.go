@@ -1,9 +1,9 @@
 package main
 
 import (
-	"ReductionAPI/Conf"
-	"ReductionAPI/grpcServer"
-	"ReductionAPI/rest"
+	"github.com/apix76/ShortenURL/Conf"
+	"github.com/apix76/ShortenURL/grpcServer"
+	"github.com/apix76/ShortenURL/rest"
 	"log"
 )
 

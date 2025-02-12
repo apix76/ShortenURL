@@ -1,12 +1,12 @@
 package TestRest
 
 import (
-	"ReductionAPI/Conf"
-	"ReductionAPI/rest"
 	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/apix76/ShortenURL/Conf"
+	"github.com/apix76/ShortenURL/rest"
 	"golang.org/x/sync/errgroup"
 	"math/rand"
 	"net/http"

@@ -1,10 +1,10 @@
 package grpcServer
 
 import (
-	"ReductionAPI/Conf"
-	"ReductionAPI/Db/DbAccess"
-	"ReductionAPI/Proto"
 	"fmt"
+	"github.com/apix76/ShortenURL/Conf"
+	"github.com/apix76/ShortenURL/Db/DbAccess"
+	"github.com/apix76/ShortenURL/Proto"
 	"google.golang.org/grpc"
 	"log"
 	"net"

@@ -1,13 +1,13 @@
 package TestGrpc
 
 import (
-	"ReductionAPI/Conf"
-	"ReductionAPI/Proto"
-	"ReductionAPI/grpcServer"
 	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/apix76/ShortenURL/Conf"
+	"github.com/apix76/ShortenURL/Proto"
+	"github.com/apix76/ShortenURL/grpcServer"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -32,7 +32,7 @@ func TestGrpc(t *testing.T) {
 
 	go grpcServer.GrpcServer(conf)
 	time.Sleep(1 * time.Second)
-	
+
 	con, err := grpc.NewClient(fmt.Sprintf("127.0.0.1%s", conf.GrpcPort), grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatal(err)

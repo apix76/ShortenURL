@@ -1,7 +1,7 @@
 package InMemory
 
 import (
-	"ReductionAPI/Db/DbInterface"
+	"github.com/apix76/ShortenURL/Db/DbInterface"
 )
 
 type DbMap struct {

@@ -1,13 +1,13 @@
 package rest
 
 import (
-	"ReductionAPI/Conf"
-	"ReductionAPI/Db"
-	"ReductionAPI/Db/DbInterface"
-	"ReductionAPI/UseCase"
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"github.com/apix76/ShortenURL/Conf"
+	"github.com/apix76/ShortenURL/Db"
+	"github.com/apix76/ShortenURL/Db/DbInterface"
+	"github.com/apix76/ShortenURL/UseCase"
 	"log"
 	"net"
 	"net/http"

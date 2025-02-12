@@ -1,11 +1,11 @@
 package Proto
 
 import (
-	"ReductionAPI/Db/DbInterface"
-	"ReductionAPI/UseCase"
 	"context"
 	"database/sql"
 	"errors"
+	"github.com/apix76/ShortenURL/Db/DbInterface"
+	"github.com/apix76/ShortenURL/UseCase"
 )
 
 type Server struct {

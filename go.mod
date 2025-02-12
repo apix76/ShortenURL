@@ -1,4 +1,4 @@
-module ReductionAPI
+module github.com/apix76/ShortenURL
 
 go 1.22
 

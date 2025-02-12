@@ -1,9 +1,9 @@
 package Db
 
 import (
-	"ReductionAPI/Db/DbInterface"
-	"ReductionAPI/Db/InMemory"
-	"ReductionAPI/Db/Psql"
+	"github.com/apix76/ShortenURL/Db/DbInterface"
+	"github.com/apix76/ShortenURL/Db/InMemory"
+	"github.com/apix76/ShortenURL/Db/Psql"
 )
 
 func NewDb(dns string) (DbInterface.Db, error) {
