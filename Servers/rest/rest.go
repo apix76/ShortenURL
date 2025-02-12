@@ -57,30 +57,36 @@ func (p *HTTPHandler) ServePost(w http.ResponseWriter, req *http.Request) {
 	err := json.NewDecoder(req.Body).Decode(&UrlFromRequest)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(err.Error()))
 		return
 	}
 
 	defer req.Body.Close()
+
+	if UrlFromRequest.URL == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte("url is empty"))
+	}
 
 	Resp.ShortURL = UseCase.ShortenURL(UrlFromRequest.URL)
 
 	if _, err := p.Db.Get(Resp.ShortURL); err != nil {
 		if err == DbInterface.ErrNoExist {
 			if err = p.Db.Add(Resp.ShortURL, UrlFromRequest.URL); err != nil {
-				w.WriteHeader(http.StatusBadRequest)
+				w.WriteHeader(http.StatusInternalServerError)
 				return
 			}
 		} else {
-			w.WriteHeader(http.StatusBadRequest)
+			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
 	}
 
+	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(Resp)
 	if err != nil {
 		log.Fatal(err)
 	}
-
 }
 
 func (g *HTTPHandler) ServeGet(w http.ResponseWriter, req *http.Request) {
@@ -98,16 +104,24 @@ func (g *HTTPHandler) ServeGet(w http.ResponseWriter, req *http.Request) {
 	err := json.NewDecoder(req.Body).Decode(&RequestURL)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(err.Error()))
 		return
 	}
 
 	defer req.Body.Close()
 
+	if RequestURL.ShortURL == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(`ShortURL is empty`))
+	}
+
 	if ResponseURL.URL, err = g.Db.Get(RequestURL.ShortURL); err != nil {
-		w.WriteHeader(http.StatusBadRequest) //todo
+		w.WriteHeader(http.StatusNotFound)
+		w.Write([]byte(`Url Not Found`))
 		return
 	}
 
+	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(ResponseURL)
 	if err != nil {
 		log.Fatal(err)
