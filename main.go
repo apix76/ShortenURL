@@ -15,17 +15,18 @@ func main() {
 		log.Fatal(err)
 	}
 
-	if conf.GrpcPort == "" && conf.GrpcPort == "" {
+	if conf.GrpcPort == "" && conf.HttpPort == "" {
 		log.Print("You didn't specify ports")
 		return
 	}
 
-	if conf.HttpPort != "" {
+	if conf.HttpPort != "" && conf.GrpcPort != "" {
 		go rest.Http(conf)
+	} else if conf.HttpPort != "" && conf.GrpcPort == "" {
+		rest.Http(conf)
 	}
 
 	if conf.GrpcPort != "" {
 		grpcServer.GrpcServer(conf)
 	}
-
 }
