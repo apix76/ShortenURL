@@ -3,7 +3,7 @@ package grpcServer
 import (
 	"fmt"
 	"github.com/apix76/ShortenURL/Conf"
-	"github.com/apix76/ShortenURL/Db/DbAccess"
+	"github.com/apix76/ShortenURL/Db"
 	"github.com/apix76/ShortenURL/Proto"
 	"google.golang.org/grpc"
 	"log"
@@ -12,7 +12,7 @@ import (
 
 func GrpcServer(conf Conf.Conf) {
 
-	db, err := DbAccess.Db.NewDb(conf.PgsqlNameServe)
+	db, err := Db.NewDb(conf.PgsqlNameServe)
 	if err != nil {
 		log.Fatal(err)
 	}
