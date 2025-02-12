@@ -1,11 +1,30 @@
 # Descripcion 
 This server shortens your URL to a 10 character string. This code was written on Golang and use RestAPI and grpc protocol. To store data code uses Postgresql database with pgx driver, also server can store data in memory.
 
-# Install
-For install and build execute command below:
+# How get 
+
+For get code execute command below:
 ```
-go install github.com/apix76/ShortenURL@latest
+go clone github.com/apix76/ShortenURL@latest "Your_path"
 ```
+## Build with Go build
+For build code with go you can command below:
+```
+go build location_ShortenURL
+```
+
+## Build with Docker  
+
+For build code with docker you can use:
+```
+docker build -t shortenurl location_ShortenURL
+```
+
+This comman is create image from [Dockerfile](https://github.com/apix76/ShortenURL/blob/main/Dockerfile), which you can run with:
+```
+docker run shortenurl
+```
+
 # Postgresql
 Setup of table psql is been in the [CreateDb.sql](https://github.com/apix76/ShortenURL/blob/main/CreateDb.sql).
 
