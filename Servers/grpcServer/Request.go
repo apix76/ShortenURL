@@ -6,6 +6,7 @@ import (
 	"github.com/apix76/ShortenURL/Db/DbInterface"
 	"github.com/apix76/ShortenURL/Proto"
 	"github.com/apix76/ShortenURL/UseCase"
+	url2 "net/url"
 )
 
 type Server struct {
@@ -14,8 +15,11 @@ type Server struct {
 }
 
 func (s *Server) GetShortenURL(ctx context.Context, url *Proto.URL) (*Proto.ShortURL, error) {
-	if url == nil {
+	if url.Url == "" {
 		return nil, errors.New("url can't be nil")
+	}
+	if _, err := url2.Parse(url.Url); err != nil {
+		return nil, errors.New("Invalid url")
 	}
 
 	shortUrl := Proto.ShortURL{ShortURL: UseCase.ShortenURL(url.Url)}
@@ -34,7 +38,7 @@ func (s *Server) GetShortenURL(ctx context.Context, url *Proto.URL) (*Proto.Shor
 }
 
 func (s Server) GetAllURL(ctx context.Context, shortUrl *Proto.ShortURL) (*Proto.URL, error) {
-	if shortUrl == nil {
+	if shortUrl.ShortURL == "" {
 		return nil, errors.New("shortenUrl cannot be nil")
 	}
 
