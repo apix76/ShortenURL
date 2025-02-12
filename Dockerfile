@@ -1,6 +1,6 @@
 FROM golang:1.22-alpine
 
-WORKDIR /ReductionAPI
+WORKDIR /ShortenURL
 COPY . .
 
 RUN go build ./
