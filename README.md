@@ -1,12 +1,12 @@
 # Descripcion 
-This server shortens your URL to a 10 character string. This code was written on Golang and use RestAPI and grpc protocole. To store data code uses Postgresql database with pgx driver, also server can store data in memory.
+This server shortens your URL to a 10 character string. This code was written on Golang and use RestAPI and grpc protocol. To store data code uses Postgresql database with pgx driver, also server can store data in memory.
 
 # Install
 For install and build execute command below:
 ```
 go install github.com/apix76/ShortenURL@latest
 ```
-# Postgrasql
+# Postgresql
 Setup of table psql is been in the [CreateDb.sql](https://github.com/apix76/ShortenURL/blob/main/CreateDb.sql).
 
 # Setup config 
