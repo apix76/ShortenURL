@@ -8,11 +8,13 @@ go install github.com/apix76/ShortenURL@latest
 ```
 
 # Setup config 
+Table 
 if field HttpPort/GrpcPort is empty, than RestAPI/grpc server won't start.
 HttpPort & GrpcPort both can't be empty.
 
 If field PgsqlNameServe is empty in config.cfg, server will be store data in memory.
-example config.cfg:
+
+Example config.cfg:
 ```json
 {
   "HttpPort":":8080",
@@ -20,3 +22,4 @@ example config.cfg:
   "PgsqlNameServe":"postgres://PsqlUserName:PsqlUserPassword@DOMEN:PORT/NameYourDb"
 }
 ```
+
