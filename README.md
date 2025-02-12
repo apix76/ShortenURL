@@ -22,8 +22,9 @@ docker build -t shortenurl location_ShortenURL
 
 This comman is create image from [Dockerfile](https://github.com/apix76/ShortenURL/blob/main/Dockerfile), which you can run with:
 ```
-docker run -p HttpPort:HttpPort -p GrpcPort:GrpcPort shortenurl
+docker run -p HttpPort:HttpPort -p GrpcPort:GrpcPort -v location_ShortenURL/config.cfg /config.cfg shortenurl
 ```
+see below for how to fill out the configuration
 
 # Postgresql
 Setup of table psql is been in the [CreateDb.sql](https://github.com/apix76/ShortenURL/blob/main/CreateDb.sql).
